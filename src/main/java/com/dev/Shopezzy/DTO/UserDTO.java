@@ -1,6 +1,5 @@
 package com.dev.Shopezzy.DTO;
 
-import jakarta.persistence.Column;
 
 public class UserDTO {
 
@@ -12,9 +11,12 @@ public class UserDTO {
     private String mobile;
     
     
-	
+    public UserDTO() {
+//		super();
+		
+	}
 	public UserDTO(Long id, String firstName, String lastName, String password, String email, String mobile) {
-		super();
+//		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;

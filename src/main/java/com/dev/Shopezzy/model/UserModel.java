@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
+
 public class UserModel {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,13 +78,17 @@ public class UserModel {
 	}
 
 	public UserModel(Long id, String firstName, String lastName, String password, String email, String mobile) {
-		super();
+//		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
 		this.email = email;
 		this.mobile = mobile;
+	}
+
+	public UserModel() {
+//		super();
 	}
 
 }
