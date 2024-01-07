@@ -3,6 +3,7 @@ package com.dev.Shopezzy.service;
 
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -78,6 +79,41 @@ public class ProductServiceImpl implements ProductService {
 		        return false;
 		    }
 		return false;
+	}
+	@Override
+	public boolean updateProduct(ProductDTO updatedProduct, long id) {
+		Optional<ProductModel> optionalOldProduct = productrepo.findById(id);
+
+        if (optionalOldProduct.isPresent()) {
+            ProductModel oldProduct = optionalOldProduct.get();
+
+            // Update fields excluding brand
+            oldProduct.setTitle(updatedProduct.getTitle());
+            oldProduct.setDescription(updatedProduct.getDescription());
+            oldProduct.setPrice(updatedProduct.getPrice());
+            oldProduct.setQuantity(updatedProduct.getQuantity());
+            oldProduct.setSizes(updatedProduct.getSizes());
+            oldProduct.setImageUrl(updatedProduct.getImageUrl());
+            oldProduct.setCategory(updatedProduct.getCategory());
+            oldProduct.setBrand(updatedProduct.getBrand());
+
+            // Save the updated product
+            productrepo.save(oldProduct);
+
+            return true;
+        } else {
+            return false; 
+        }
+	}
+	@Override
+	public ProductDTO getById(long id) {
+		Optional<ProductModel> optionalOldProduct = productrepo.findById(id);
+		 if (optionalOldProduct.isPresent())
+		 {
+			 return optionalOldProduct.map(this::convertToDto).orElse(null);
+		 }
+		 else
+		   return null;
 	}
     
     

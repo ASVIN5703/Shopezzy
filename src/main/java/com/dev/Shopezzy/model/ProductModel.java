@@ -2,11 +2,15 @@ package com.dev.Shopezzy.model;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -48,11 +52,11 @@ public ProductModel(Long id, String title, String description, int price, String
 		this.category = category;
 	}
 @Override
-	public String toString() {
-		return "ProductModel [id=" + id + ", title=" + title + ", description=" + description + ", price=" + price
-				+ ", quantity=" + quantity + ", brand=" + brand + ", sizes=" + sizes + ", imageUrl=" + imageUrl
-				+ ", category=" + category + "]";
-	}
+public String toString() {
+	return "ProductModel [id=" + id + ", title=" + title + ", description=" + description + ", price=" + price
+			+ ", quantity=" + quantity + ", brand=" + brand + ", sizes=" + sizes + ", imageUrl=" + imageUrl
+			+ ", category=" + category + ", shop=" + shop + "]";
+}
 public Long getId() {
 		return id;
 	}
@@ -127,5 +131,14 @@ public Long getId() {
    @Column(name="category")
    private String category;
    
-   
+   public ShopModel getShop() {
+	return shop;
+}
+public void setShop(ShopModel shop) {
+	this.shop = shop;
+}
+@ManyToOne
+   @JoinColumn(name = "shop_id") 
+   @JsonBackReference
+   private ShopModel shop;
 }
